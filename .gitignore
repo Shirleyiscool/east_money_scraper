@@ -1,0 +1,8 @@
+# Ignore environment-specific files
+.vscode/
+python_quant/
+
+*.csv
+
+.DS_Store
+test.py
