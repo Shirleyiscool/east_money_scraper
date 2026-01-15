@@ -3,6 +3,8 @@
 python_quant/
 
 *.csv
+*.txt
+*.pyc
 
 .DS_Store
 test.py

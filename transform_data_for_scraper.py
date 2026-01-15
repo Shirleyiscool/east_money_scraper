@@ -58,7 +58,6 @@ def transform_data(df, stock_code, type_name, unit=None):
     
     df = add_prefixes(df) # add prefixes to first column
     df_t = df.set_index(index_col).T # transpose
-    print(df_t.head())
     df_t.reset_index(names=index_col, inplace=True) # reset index
 
     # melt the dataframe
