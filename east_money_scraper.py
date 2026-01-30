@@ -104,6 +104,7 @@ stock_code_list = stock_code_df["股份代號"].tolist()
 # Re-Scrape Code
 # stock_code_list = ['01959', '01789', '01285', '01993', 
 #                    '01962', '01948', '02016', '01973', '02023']
+# stock_code_list = ['00798', '01218', '01905', '03399']
 
 # Prepare data storage
 content_list = ["content_zyzb", "content_zcfzb", "content_lrb", "content_xjllb"]
@@ -139,11 +140,11 @@ while stock_idx < len(stock_code_list):
     random_number = random.randint(1, 5)
     time.sleep(random_number)
     
-    # Set up driver with proxy
+    # Set up driver with/without proxy
     proxy = proxies_list[use_proxy_index]
     try:
-        driver = make_driver_with_proxy(proxy)
-        # driver = make_driver_without_proxy()
+        driver = make_driver_with_proxy(proxy) # Scape with proxy
+        # driver = make_driver_without_proxy() # Scrape without proxy
     except Exception as e:
         print(f"Error creating driver with proxy {proxy}: {e}")
         use_proxy_index += 1

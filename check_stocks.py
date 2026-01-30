@@ -32,11 +32,15 @@ if __name__ == "__main__":
         print(f"Cleaning file: {file_name}")
     
     # Stocks that are successfully scraped in all 4 types
-    all_values = [set(v) for v in type_stock.values()]
-    common_stock = list(set.intersection(*all_values))
-    
+    cnt_dic = {}
+    for k, stock_list in type_stock.items():
+        for stock in stock_list:
+            if stock not in cnt_dic:
+                cnt_dic[stock] = [k]
+            else:
+                cnt_dic[stock].append(k)
     # Failed Stocks
-    failed_stocks = set(whole_stock_list) - set(common_stock)
+    failed_stocks = [stock for stock,type_list in cnt_dic.items() if len(type_list) < 4]
     print("Failed stocks:", failed_stocks)
 
     re_scrape_stocks = []
@@ -45,7 +49,5 @@ if __name__ == "__main__":
             re_scrape_stocks.append(fs)
         if fs not in fail_stock_reasons.keys():
             re_scrape_stocks.append(fs)
-        else:
-            print(f"{fs}: {fail_stock_reasons[fs]}")
             
     print("Stocks to re-scrape:", re_scrape_stocks)
