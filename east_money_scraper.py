@@ -90,16 +90,20 @@ def append_fail_stocks(fail_stocks, stock_code, fail_reason):
 
 
 # Load proxies
-with open("valid_proxies_2.txt", "r") as f:
+with open("valid_proxies.txt", "r") as f:
         proxies_list = [line.strip() for line in f if line.strip()]
 
 # Load stock codes
 stock_code_df = pd.read_csv("hk_stock_list_short.csv", dtype={"股份代號": str}) # whole stock list
-last_stock = '01328'  # last scraped stock code
+last_stock = '08426'  # last scraped stock code
 last_index = stock_code_df.loc[stock_code_df['股份代號'] == last_stock].index[0]
 print(len(stock_code_df) - last_index - 1, "stocks remaining to scrape.")
 stock_code_df = stock_code_df.iloc[last_index + 1: last_index + 201] # resume from next stock
 stock_code_list = stock_code_df["股份代號"].tolist()
+
+# Re-Scrape Code
+# stock_code_list = ['01959', '01789', '01285', '01993', 
+#                    '01962', '01948', '02016', '01973', '02023']
 
 # Prepare data storage
 content_list = ["content_zyzb", "content_zcfzb", "content_lrb", "content_xjllb"]
@@ -139,6 +143,7 @@ while stock_idx < len(stock_code_list):
     proxy = proxies_list[use_proxy_index]
     try:
         driver = make_driver_with_proxy(proxy)
+        # driver = make_driver_without_proxy()
     except Exception as e:
         print(f"Error creating driver with proxy {proxy}: {e}")
         use_proxy_index += 1
@@ -206,4 +211,4 @@ while stock_idx < len(stock_code_list):
 
 driver.quit()
 
-# print(f"Scraping completed. Successful stocks: {len(success_stocks)}, Failed stocks: {len(fail_stocks)}")
+print(f"Scraping completed. Successful stocks: {len(success_stocks)}, Failed stocks: {len(fail_stocks)}")

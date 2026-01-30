@@ -18,6 +18,8 @@ def transform_stock_code(df, stock_code_col):
     df[stock_code_col] = df[stock_code_col].apply(format_code)
     return df
 
+
+
 if __name__ == "__main__":
     # Example usage
     df = pd.read_csv("hk_stock_list_short.csv")

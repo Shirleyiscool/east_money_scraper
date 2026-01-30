@@ -47,4 +47,4 @@ if __name__ == "__main__":
         good.extend(good2)
         bad = bad2
     print(f"After 2nd test - Valid proxies: {len(good)}, Invalid proxies: {len(bad)}")
-    save_proxies("valid_proxies_2.txt", good)
+    save_proxies("valid_proxies.txt", good)
